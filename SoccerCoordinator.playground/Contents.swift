@@ -28,7 +28,7 @@ let herschelKrustofski: [String: String] = ["Name": "Herschel Krustofski", "Heig
 
 var players = [joeSmith, jillTanner, billBon, evaGordon, mattGill, kimmyStein, sammyAdams, karlSaygan, suzaneGreenberg, salDali, joeKavalier, benFinkelstein, diegoSoto, chloeAlaska, arnoldWillis, phillipHelm, lesClay, herschelKrustofski]
 
-
+// Teams
 var teamSharks = [String]()
 var teamDragons =  [String]()
 var teamRaptors = [String]()
@@ -52,18 +52,98 @@ func exampleSortPlayers() {
     }
 }*/
 
+// Arrays
+var others = [String]()
+var highNoExperiencePlayers = [String]()
+var midNoExperiencePlayers = [String]()
+var lowNoExperiencePlayers = [String]()
+var highExperiencedPlayers = [String]()
+var midExperiencedPlayers = [String]()
+var lowExperiencedPlayers = [String]()
+var experiencedPlayers = [String]()
+var noExperiencedPlayers = [String]()
+
+
+// Function to sort through all the players
 func sortPlayer() {
-    var experiencedPlayers = [String]()
-    var unExperiencedPlayers = [String]()
-    var tallPlayers = [String]()
-    var shortPlayers = [String]()
     for player in players {
         if player["Experience"]! == "Yes" {
-            experiencedPlayers.append(player["Name"]!)
-        } else {
-            unExperiencedPlayers.append(player["Name"]!)
+            switch player["Height"]! {
+                case "50": highExperiencedPlayers.append(player["Name"]!)
+                case "49": highExperiencedPlayers.append(player["Name"]!)
+                case "48": highExperiencedPlayers.append(player["Name"]!)
+                case "47": highExperiencedPlayers.append(player["Name"]!)
+                case "46": highExperiencedPlayers.append(player["Name"]!)
+                case "45": highExperiencedPlayers.append(player["Name"]!)
+                case "44": midExperiencedPlayers.append(player["Name"]!)
+                case "43": midExperiencedPlayers.append(player["Name"]!)
+                case "42": midExperiencedPlayers.append(player["Name"]!)
+                case "41": midExperiencedPlayers.append(player["Name"]!)
+                case "40": lowExperiencedPlayers.append(player["Name"]!)
+                case "39": lowExperiencedPlayers.append(player["Name"]!)
+                case "38": lowExperiencedPlayers.append(player["Name"]!)
+                case "37": lowExperiencedPlayers.append(player["Name"]!)
+                case "36": lowExperiencedPlayers.append(player["Name"]!)
+            default: lowExperiencedPlayers.append(player["Name"]!)
+            }
+        } else if player["Experience"]! == "No"{
+            switch player["Height"]! {
+                case "50": highNoExperiencePlayers.append(player["Name"]!)
+                case "49": highNoExperiencePlayers.append(player["Name"]!)
+                case "48": highNoExperiencePlayers.append(player["Name"]!)
+                case "47": highNoExperiencePlayers.append(player["Name"]!)
+                case "46": highNoExperiencePlayers.append(player["Name"]!)
+                case "45": highNoExperiencePlayers.append(player["Name"]!)
+                case "44": midNoExperiencePlayers.append(player["Name"]!)
+                case "43": midNoExperiencePlayers.append(player["Name"]!)
+                case "42": midNoExperiencePlayers.append(player["Name"]!)
+                case "41": midNoExperiencePlayers.append(player["Name"]!)
+                case "40": lowNoExperiencePlayers.append(player["Name"]!)
+                case "39": lowNoExperiencePlayers.append(player["Name"]!)
+                case "38": lowNoExperiencePlayers.append(player["Name"]!)
+                case "37": lowNoExperiencePlayers.append(player["Name"]!)
+                case "36": lowNoExperiencePlayers.append(player["Name"]!)
+            default: lowNoExperiencePlayers.append(player["Name"]!)
+            }
         }
     }
+    
+    // Assigning all experienced players into one array
+    experiencedPlayers = highExperiencedPlayers + midExperiencedPlayers + lowExperiencedPlayers
+    // Assigning the rest of the non-experienced into one array 
+    noExperiencedPlayers = highNoExperiencePlayers + midNoExperiencePlayers + lowNoExperiencePlayers
+    
+    // Assigning experienced players to teams
+    while teamSharks.count < 3  && teamDragons.count < 3 && teamSharks.count < 3 {
+    teamSharks.append(experiencedPlayers[0])
+    teamSharks.append(experiencedPlayers[1])
+    teamSharks.append(experiencedPlayers[2])
+    teamDragons.append(experiencedPlayers[3])
+    teamDragons.append(experiencedPlayers[4])
+    teamDragons.append(experiencedPlayers[5])
+    teamRaptors.append(experiencedPlayers[6])
+    teamRaptors.append(experiencedPlayers[7])
+    teamRaptors.append(experiencedPlayers[8])
+    }
+    
+    // Assigning non-experienced players to teams
+    while teamSharks.count < 6 && teamDragons.count < 6 && teamRaptors.count < 6 {
+    teamRaptors.append(noExperiencedPlayers[0])
+    teamRaptors.append(noExperiencedPlayers[1])
+    teamRaptors.append(noExperiencedPlayers[2])
+    teamDragons.append(noExperiencedPlayers[3])
+    teamDragons.append(noExperiencedPlayers[4])
+    teamDragons.append(noExperiencedPlayers[5])
+    teamSharks.append(noExperiencedPlayers[6])
+    teamSharks.append(noExperiencedPlayers[7])
+    teamSharks.append(noExperiencedPlayers[8])
+    }
 }
+
+sortPlayer()
+
+teamSharks
+teamDragons
+teamRaptors
 
 
