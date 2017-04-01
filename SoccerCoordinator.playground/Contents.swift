@@ -28,32 +28,15 @@ let herschelKrustofski: [String: String] = ["Name": "Herschel Krustofski", "Heig
 
 var players = [joeSmith, jillTanner, billBon, evaGordon, mattGill, kimmyStein, sammyAdams, karlSaygan, suzaneGreenberg, salDali, joeKavalier, benFinkelstein, diegoSoto, chloeAlaska, arnoldWillis, phillipHelm, lesClay, herschelKrustofski]
 
+
+// Arrays
+
 // Teams
 var teamSharks = [String]()
 var teamDragons =  [String]()
 var teamRaptors = [String]()
 
-
-func exampleSortPlayers() {
-    for player in players {
-        print("He's \(player["Height"]!)")
-    }
-}
-
-/* func sortPlayers() {
-    for player in players {
-        switch player["Height"]! {
-        case "36": if player["Experience"]! == "Yes" {
-            teamSharks.append(player["Name"]!)
-            }
-            case "42": teamDragons.append(player["Name"]!)
-        default: teamRaptors.append(player["Name"]!)
-        }
-    }
-}*/
-
-// Arrays
-var others = [String]()
+// Temporary holding arrays
 var highNoExperiencePlayers = [String]()
 var midNoExperiencePlayers = [String]()
 var lowNoExperiencePlayers = [String]()
@@ -110,7 +93,7 @@ func sortPlayer() {
     
     // Assigning all experienced players into one array
     experiencedPlayers = highExperiencedPlayers + midExperiencedPlayers + lowExperiencedPlayers
-    // Assigning the rest of the non-experienced into one array 
+    // Assigning the rest of the non-experienced into one array
     noExperiencedPlayers = highNoExperiencePlayers + midNoExperiencePlayers + lowNoExperiencePlayers
     
     // Assigning experienced players to teams
@@ -140,10 +123,13 @@ func sortPlayer() {
     }
 }
 
+// Calling the function to sort players
 sortPlayer()
 
+// Making sure no teams have the same players and each have same amount of players 
 teamSharks
 teamDragons
 teamRaptors
+
 
 
