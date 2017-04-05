@@ -32,104 +32,81 @@ var players = [joeSmith, jillTanner, billBon, evaGordon, mattGill, kimmyStein, s
 // Arrays
 
 // Teams
-var teamSharks = [String]()
-var teamDragons =  [String]()
-var teamRaptors = [String]()
+var teamSharks: [[String: String]] = []
+var teamDragons: [[String: String]] = []
+var teamRaptors: [[String: String]] = []
 
-// Temporary holding arrays
-var highNoExperiencePlayers = [String]()
-var midNoExperiencePlayers = [String]()
-var lowNoExperiencePlayers = [String]()
-var highExperiencedPlayers = [String]()
-var midExperiencedPlayers = [String]()
-var lowExperiencedPlayers = [String]()
-var experiencedPlayers = [String]()
-var noExperiencedPlayers = [String]()
+// Storage Arrays
+var experiencedPlayers: [[String: String]] = []
+var noExperiencedPlayers: [[String: String]] = []
 
+var experiencedPlayersPerTeam = 0
+var totalCountPerTeam = 0
+var index = 0
+var sharksAverageHeight = 0
+var letter = ""
 
-// Function to sort through all the players
-func sortPlayer() {
-    for player in players {
-        if player["Experience"]! == "Yes" {
-            switch player["Height"]! {
-                case "50": highExperiencedPlayers.append(player["Name"]!)
-                case "49": highExperiencedPlayers.append(player["Name"]!)
-                case "48": highExperiencedPlayers.append(player["Name"]!)
-                case "47": highExperiencedPlayers.append(player["Name"]!)
-                case "46": highExperiencedPlayers.append(player["Name"]!)
-                case "45": highExperiencedPlayers.append(player["Name"]!)
-                case "44": midExperiencedPlayers.append(player["Name"]!)
-                case "43": midExperiencedPlayers.append(player["Name"]!)
-                case "42": midExperiencedPlayers.append(player["Name"]!)
-                case "41": midExperiencedPlayers.append(player["Name"]!)
-                case "40": lowExperiencedPlayers.append(player["Name"]!)
-                case "39": lowExperiencedPlayers.append(player["Name"]!)
-                case "38": lowExperiencedPlayers.append(player["Name"]!)
-                case "37": lowExperiencedPlayers.append(player["Name"]!)
-                case "36": lowExperiencedPlayers.append(player["Name"]!)
-            default: lowExperiencedPlayers.append(player["Name"]!)
-            }
-        } else if player["Experience"]! == "No"{
-            switch player["Height"]! {
-                case "50": highNoExperiencePlayers.append(player["Name"]!)
-                case "49": highNoExperiencePlayers.append(player["Name"]!)
-                case "48": highNoExperiencePlayers.append(player["Name"]!)
-                case "47": highNoExperiencePlayers.append(player["Name"]!)
-                case "46": highNoExperiencePlayers.append(player["Name"]!)
-                case "45": highNoExperiencePlayers.append(player["Name"]!)
-                case "44": midNoExperiencePlayers.append(player["Name"]!)
-                case "43": midNoExperiencePlayers.append(player["Name"]!)
-                case "42": midNoExperiencePlayers.append(player["Name"]!)
-                case "41": midNoExperiencePlayers.append(player["Name"]!)
-                case "40": lowNoExperiencePlayers.append(player["Name"]!)
-                case "39": lowNoExperiencePlayers.append(player["Name"]!)
-                case "38": lowNoExperiencePlayers.append(player["Name"]!)
-                case "37": lowNoExperiencePlayers.append(player["Name"]!)
-                case "36": lowNoExperiencePlayers.append(player["Name"]!)
-            default: lowNoExperiencePlayers.append(player["Name"]!)
-            }
-        }
-    }
-    
-    // Assigning all experienced players into one array
-    experiencedPlayers = highExperiencedPlayers + midExperiencedPlayers + lowExperiencedPlayers
-    // Assigning the rest of the non-experienced into one array
-    noExperiencedPlayers = highNoExperiencePlayers + midNoExperiencePlayers + lowNoExperiencePlayers
-    
-    // Assigning experienced players to teams
-    while teamSharks.count < 3  && teamDragons.count < 3 && teamSharks.count < 3 {
-    teamSharks.append(experiencedPlayers[0])
-    teamSharks.append(experiencedPlayers[1])
-    teamSharks.append(experiencedPlayers[2])
-    teamDragons.append(experiencedPlayers[3])
-    teamDragons.append(experiencedPlayers[4])
-    teamDragons.append(experiencedPlayers[5])
-    teamRaptors.append(experiencedPlayers[6])
-    teamRaptors.append(experiencedPlayers[7])
-    teamRaptors.append(experiencedPlayers[8])
-    }
-    
-    // Assigning non-experienced players to teams
-    while teamSharks.count < 6 && teamDragons.count < 6 && teamRaptors.count < 6 {
-    teamRaptors.append(noExperiencedPlayers[0])
-    teamRaptors.append(noExperiencedPlayers[1])
-    teamRaptors.append(noExperiencedPlayers[2])
-    teamDragons.append(noExperiencedPlayers[3])
-    teamDragons.append(noExperiencedPlayers[4])
-    teamDragons.append(noExperiencedPlayers[5])
-    teamSharks.append(noExperiencedPlayers[6])
-    teamSharks.append(noExperiencedPlayers[7])
-    teamSharks.append(noExperiencedPlayers[8])
+// Breaking up experienced versus non-experienced
+for player in players {
+    if player["Experience"]! == "Yes" {
+        experiencedPlayers.append(player)
+    } else {
+        noExperiencedPlayers.append(player)
     }
 }
 
-// Calling the function to sort players
-sortPlayer()
+experiencedPlayersPerTeam = experiencedPlayers.count / 3
+totalCountPerTeam = players.count / 3
 
-// Making sure no teams have the same players and each have same amount of players 
-teamSharks
-teamDragons
-teamRaptors
+// Assigning experienced players
+while index < experiencedPlayers.count {
+    if teamDragons.count < experiencedPlayersPerTeam {
+        teamDragons.append(experiencedPlayers[index])
+    } else if teamSharks.count < experiencedPlayersPerTeam {
+        teamSharks.append(experiencedPlayers[index])
+    } else {
+        teamRaptors.append(experiencedPlayers[index])
+    }
+    index += 1
+}
+
+// Rest the index
+index = 0
+
+// Assigning the rest
+while index < noExperiencedPlayers.count {
+    if teamDragons.count < totalCountPerTeam {
+        teamDragons.append(noExperiencedPlayers[index])
+    } else if teamSharks.count < totalCountPerTeam {
+        teamSharks.append(noExperiencedPlayers[index])
+    } else {
+        teamRaptors.append(noExperiencedPlayers[index])
+    }
+    index += 1
+}
+
+// Making sure no teams have the same players and each have same amount of players
+teamSharks.count
+teamDragons.count
+teamRaptors.count
+
+
+
+// The letters
+for player in teamSharks {
+    letter = "Dear \(player["Parents"]!), your child, \(player["Name"]!), has been added to the Sharks team. The team will practice March 17th at 3pm. Thank you."
+    print(letter)
+}
+
+for player in teamDragons {
+    letter = "Dear \(player["Parents"]!), your child, \(player["Name"]!), has been added to the Dragons team. The team will practice March 17th at 3pm. Thank you."
+    print(letter)
+}
+
+for player in teamRaptors {
+    letter = "Dear \(player["Parents"]!), your child, \(player["Name"]!), has been added to the Raptors team. The team will practice March 17th at 3pm. Thank you."
+    print(letter)
+}
 
 
 
